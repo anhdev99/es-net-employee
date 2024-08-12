@@ -1,0 +1,48 @@
+# Tệp tạm thời
+*.log
+*.tmp
+*.swp
+*.swo
+
+# Thư mục chứa build và các tệp tạm thời
+bin/
+obj/
+*.exe
+*.dll
+*.pdb
+*.cache
+*.dbmdl
+*.bak
+*.sql
+*.user
+*.vs
+.vscode/
+
+# Các tệp cấu hình của IDE
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Tệp cấu hình hệ thống và các tệp không cần thiết khác
+*.DS_Store
+*.AppleDouble
+*.LSOverride
+Icon?
+._*
+Desktop.ini
+Thumbs.db
+*.goutputstream*
+
+# Tệp và thư mục của ASP.NET Core
+wwwroot/
+*.ng/
+*.nupkg
+*.snupkg
+*.csproj.user
+
+# Tệp và thư mục của NuGet
+.nuget/
+packages/
+
+*.idea
