@@ -1,0 +1,105 @@
+{
+	"info": {
+		"_postman_id": "6fec8d84-4c47-442b-a52e-d393172b26bf",
+		"name": "ESEmployees",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28426618"
+	},
+	"item": [
+		{
+			"name": "Get Employee By Id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5262/api/v1/Employee/get-by-id/499999",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5262",
+					"path": [
+						"api",
+						"v1",
+						"Employee",
+						"get-by-id",
+						"499999"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Employees",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"content\": \"Feiu\",\n  \"pageNumber\": 1,\n  \"pageSize\": 10\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5262/api/v1/Employee/get-employees",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5262",
+					"path": [
+						"api",
+						"v1",
+						"Employee",
+						"get-employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ES Employee Search",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"content\": \"Feiu\",\n    \"pageNumber\": 1,\n    \"pageSize\": 10,\n    \"fuzzy\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5262/api/v1/ESEmployee/search",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5262",
+					"path": [
+						"api",
+						"v1",
+						"ESEmployee",
+						"search"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

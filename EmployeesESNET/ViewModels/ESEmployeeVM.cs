@@ -38,3 +38,15 @@ public class ESEmployeeModel
 
     public DateOnly HireDate { get; set; }
 }
+
+
+public partial class ESSalaryVM : IMapFrom<Salary>
+{
+    public long EmployeeId { get; set; }
+
+    public long Amount { get; set; }
+
+    public DateOnly FromDate { get; set; }
+
+    public DateOnly ToDate { get; set; }
+}

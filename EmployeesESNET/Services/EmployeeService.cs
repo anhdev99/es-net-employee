@@ -16,12 +16,16 @@ public class EmployeeService
     private readonly DataContext context;
     private readonly IMapper _mapper;
     private readonly IGenericRepo<ESEmployeeVM> repo;
+    private readonly IGenericRepo<ESSalaryVM> repoSalary;
     
-    public EmployeeService(DataContext context, IMapper mapper,  IGenericRepo<ESEmployeeVM> repo)
+    public EmployeeService(DataContext context, IMapper mapper, 
+        IGenericRepo<ESEmployeeVM> repo,
+        IGenericRepo<ESSalaryVM> repoSalary)
     {
         this.context = context;
         _mapper = mapper;
         this.repo = repo;
+        this.repoSalary = repoSalary;
     }
     
     public async Task<dynamic> GetEmployeesPaginationQuery(GetEmployeePaginationQuery query, CancellationToken cancellationToken)
@@ -53,13 +57,49 @@ public class EmployeeService
 
         var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
 
+        int index = 0;
         for (int i = 1; i <= totalPages; i++)
         {
             var data = await context.Employees.ProjectTo<ESEmployeeVM>(_mapper.ConfigurationProvider).Skip((i - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
 
             await repo.Index(data);
 
-            await Task.Delay(1000);
+            if (index >= 100)
+            {
+                await Task.Delay(100);
+                index = 0;
+            }
+            else
+            {
+                index++;
+            }
+        }
+    }
+    
+    public async Task SyncDataSalaryToEs(CancellationToken cancellationToken)
+    {
+        int pageNumber = 1;
+        int pageSize = 50;
+        long totalItems = context.Salaries.LongCount();
+
+        var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+        int index = 0;
+        for (int i = 1; i <= totalPages; i++)
+        {
+            var data = await context.Salaries.ProjectTo<ESSalaryVM>(_mapper.ConfigurationProvider).Skip((i - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
+
+            await repoSalary.Index(data);
+
+            if (index >= 100)
+            {
+                await Task.Delay(100);
+                index = 0;
+            }
+            else
+            {
+                index++;
+            }
         }
     }
 }

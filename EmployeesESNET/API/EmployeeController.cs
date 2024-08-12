@@ -71,4 +71,28 @@ public class EmployeeController: Controller
             );
         } 
     }
+    
+    [HttpGet]
+    [Route("sync-data-salary-to-es")]
+    public async Task<IActionResult> SyncDataSalaryToEs(CancellationToken cancellationToken)
+    {
+        try
+        {
+            await _employeeService.SyncDataSalaryToEs(cancellationToken);
+
+            return Ok(
+                new ResultResponse<dynamic>()
+                    .WithCode(StatusCodes.Status200OK)
+                    .WithMessage("Import Data Success.")
+            );
+        }
+        catch (Exception ex)
+        {
+            return Ok(
+                new ResultResponse<dynamic>()
+                    .WithCode(StatusCodes.Status404NotFound)
+                    .WithMessage("Error: " + ex.Message)
+            );
+        } 
+    }
 }
