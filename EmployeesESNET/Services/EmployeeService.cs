@@ -60,7 +60,7 @@ public class EmployeeService
         int index = 0;
         for (int i = 1; i <= totalPages; i++)
         {
-            var data = await context.Employees.ProjectTo<ESEmployeeVM>(_mapper.ConfigurationProvider).Skip((i - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
+            var data = await context.Employees.Include(x => x.Salaries).OrderByDescending(x => x.Id).ProjectTo<ESEmployeeVM>(_mapper.ConfigurationProvider).Skip((i - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
 
             await repo.Index(data);
 
@@ -87,7 +87,7 @@ public class EmployeeService
         int index = 0;
         for (int i = 1; i <= totalPages; i++)
         {
-            var data = await context.Salaries.ProjectTo<ESSalaryVM>(_mapper.ConfigurationProvider).Skip((i - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
+            var data = await context.Salaries.OrderByDescending(x => x.EmployeeId).ProjectTo<ESSalaryVM>(_mapper.ConfigurationProvider).Skip((i - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
 
             await repoSalary.Index(data);
 

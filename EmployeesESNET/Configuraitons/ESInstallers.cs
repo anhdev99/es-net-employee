@@ -15,7 +15,7 @@ public static class ESInstallers
         var settings = new ConnectionSettings(new Uri(credentials["host"]))
             .BasicAuthentication(credentials["username"], credentials["password"])
             .ServerCertificateValidationCallback(CertificateValidations.AllowAll)
-            .DefaultIndex("employee");
+            .DefaultIndex("employee_v2");
 
         services.AddSingleton<IElasticClient>(new ElasticClient(settings));
         services.AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>));

@@ -15,6 +15,9 @@ public class ESEmployeeVM : IMapFrom<Employee>
     public string FullName { get; set; } = null!;
 
     public DateOnly HireDate { get; set; }
+    
+    public List<Salary> Salary { get; set; }
+    public DateTime TimeTemp { get; set; } = DateTime.Now;
 
     public void Mapping(Profile profile)
     {
@@ -22,7 +25,9 @@ public class ESEmployeeVM : IMapFrom<Employee>
             .ForMember(dest => dest.FullName, opt =>
                 opt.MapFrom(src => $"{src.LastName} {src.FirstName}"))
             .ForMember(dest => dest.UserId, opt => 
-                opt.MapFrom(src => src.Id));
+                opt.MapFrom(src => src.Id))
+            .ForMember(dest => dest.Salary, opt =>
+                opt.MapFrom(src => src.Salaries));
     }
 }
 
@@ -40,7 +45,7 @@ public class ESEmployeeModel
 }
 
 
-public partial class ESSalaryVM : IMapFrom<Salary>
+public partial class ESSalaryVM
 {
     public long EmployeeId { get; set; }
 
